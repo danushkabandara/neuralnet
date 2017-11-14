@@ -1,4 +1,4 @@
-# 3. Import libraries and modules
+
 import numpy as np
 np.random.seed(123)  # for reproducibility
  
@@ -13,7 +13,6 @@ from keras import backend as K
 
 K.set_image_dim_ordering('th')
  
-# 4. Load pre-shuffled MNIST data into train and test sets
 def load_mnist(path):
     X = []
     y = []
@@ -46,14 +45,14 @@ def load_mnist(path):
 for num in range(1001,1021):
 	print num
 	print '\n'
-	# here you should enter the path to your MNIST data
+	#path to brain data
 	path = os.path.join(os.path.expanduser('~'), 'Desktop/keras/valence.labels/oxydeoxymiddle40s/'+str(num)+'alignrightnopad.csv')
 	X, y = load_mnist(path)
 	kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=7)
 	cvscores = []
 	for train, test in kfold.split(X, y):
 
-		# 5. Preprocess input data
+		#Preprocess input data
 		X_train = X[train].reshape(X[train].shape[0], 2, 5, 10)
 		X_test = X[test].reshape(X[test].shape[0], 2, 5, 10)
 		X_train = X_train.astype('float32')
@@ -61,11 +60,11 @@ for num in range(1001,1021):
 		X_train /= 255
 		X_test /= 255
 		 
-		# 6. Preprocess class labels
+		# Preprocess class labels
 		Y_train = np_utils.to_categorical(y[train], 10)
 		Y_test = np_utils.to_categorical(y[test], 10)
 		 
-		# 7. Define model architecture
+		# Define model architecture
 		model = Sequential()
 		model.reset_states
 		 
@@ -79,16 +78,16 @@ for num in range(1001,1021):
 		model.add(Dropout(0.25))
 		model.add(Dense(10, activation='softmax'))
 		 
-		# 8. Compile model
+		# Compile model
 		model.compile(loss='categorical_crossentropy',
 			      optimizer='adam',
 			      metrics=['accuracy'])
 		 
-		# 9. Fit model on training data
+		# Fit model on training data
 		model.fit(X_train, Y_train, 
 			  batch_size=32, epochs=150, verbose=0)
 		 
-		# 10. Evaluate model on test data
+		# Evaluate model on test data
 		scores = model.evaluate(X_test, Y_test, verbose=0)
 		print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 		cvscores.append(scores[1] * 100)
