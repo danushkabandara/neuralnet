@@ -44,7 +44,7 @@ def load_mnist(path):
 
     # For convolutional layers, the default shape of data is bc01,
     # i.e. batch size x color channels x image dimension 1 x image dimension 2.
-    # Therefore, we reshape the X data to -1, 1, 28, 28.
+    # Therefore, we reshape the X data to -1, 1, 10, 10.
     X = X.reshape(
         -1,  # number of samples, -1 makes it so that this number is determined automatically
         1,   # 1 color channel, since images are only black and white
@@ -57,11 +57,11 @@ def load_mnist(path):
 for num in range(1001,1010):
 	print num
 	print '\n'
-	# here you should enter the path to your MNIST data
+	# here you should enter the path to your fNIRS data
 	path = os.path.join(os.path.expanduser('~'), 'Desktop/processed/'+str(num)+'alignrightnopad.csv')
 
 	X, y = load_mnist(path)
-
+	#create subplots for holding layer data 
 	#figs, axes = plt.subplots(4, 4, figsize=(6, 6))
 	#for i in range(4):
 	#    for j in range(4):
