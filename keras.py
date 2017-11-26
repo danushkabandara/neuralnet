@@ -33,7 +33,7 @@ def load_mnist(path):
 
     # For convolutional layers, the default shape of data is bc01,
     # i.e. batch size x color channels x image dimension 1 x image dimension 2.
-    # Therefore, we reshape the X data to -1, 1, 28, 28.
+    # Therefore, we reshape the X data to -1, 1, 5, 10
     X = X.reshape(
         -1,  # number of samples, -1 makes it so that this number is determined automatically
         2,   # 1 color channel, since images are only black and white
@@ -42,7 +42,7 @@ def load_mnist(path):
     )
 
     return X, y
-for num in range(1001,1021):
+for num in range(1001,1021):#read through files of each subject and run the conv net evaluation on them
 	print num
 	print '\n'
 	#path to brain data
